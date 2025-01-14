@@ -51,10 +51,11 @@ namespace RecordStore.Repository
             var foundRecord = _db.Records.FirstOrDefault(r => r.Id == record.Id);
             if (foundRecord == null)
             {
-                return false;
+                return (false, null);
             }
             _db.Entry(foundRecord).CurrentValues.SetValues(record);
             var result = _db.SaveChanges();
             return (result == 1, record);
         }
     }
+}
