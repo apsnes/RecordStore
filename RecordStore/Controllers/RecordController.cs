@@ -41,7 +41,7 @@ namespace RecordStore.Controllers
             if (result.Item1 == false) return BadRequest("Record not found");
             return Ok(result.Item2);
         }
-        [HttpPatch]
+        [HttpPut]
         public IActionResult UpdateRecord(Record record)
         {
             var result = _recordService.UpdateRecord(record);
