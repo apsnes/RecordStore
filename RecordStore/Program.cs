@@ -9,7 +9,17 @@ namespace RecordStore
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseInMemoryDatabase("RecordStore"));
+            builder.Services.AddDbContext<RecordStoreDbContext>(options =>
+            {
+                if (builder.Environment.IsDevelopment())
+                {
+                    options.UseInMemoryDatabase("RecordStore");
+                }
+                else
+                {
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                }
+            });
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

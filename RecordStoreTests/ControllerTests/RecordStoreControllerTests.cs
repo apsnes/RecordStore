@@ -1,6 +1,9 @@
+using FluentAssertions;
 using Moq;
 using RecordStore.Controllers;
 using RecordStore.Services;
+using Microsoft.AspNetCore.Mvc;
+using RecordStore.Entities;
 
 namespace RecordStoreTests
 {
@@ -16,9 +19,28 @@ namespace RecordStoreTests
         }
 
         [Test]
-        public void Test1()
+        public void Test_GetAllRecords_NoData_Returns_BadRequest()
         {
-            Assert.Pass();
+            //Arrange
+            _mockService.Setup(x => x.GetAllRecords()).Returns((false, null));
+
+            //Act
+            var result = _recordController.GetAllRecords();
+
+            //Assert
+            result.Should().BeOfType<BadRequestObjectResult>();
+        }
+        [Test]
+        public void Test_GetAllRecords_ValidData_Returns_Ok()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetAllRecords()).Returns((true, new List<Record>()));
+
+            //Act
+            var result = _recordController.GetAllRecords();
+
+            //Assert
+            result.Should().BeOfType<OkObjectResult>();
         }
     }
 }

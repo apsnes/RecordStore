@@ -6,17 +6,9 @@ namespace RecordStore
     public class RecordStoreDbContext : DbContext
     {
         public DbSet<Record> Records { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public RecordStoreDbContext(DbContextOptions options) : base(options)
         {
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            {
-                optionsBuilder.UseInMemoryDatabase("RecordStore");
-            }
-            else
-            {
-                optionsBuilder.UseSqlServer("DefaultConnection");
-            }
+            
         }
     }
 }

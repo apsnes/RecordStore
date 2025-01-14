@@ -21,9 +21,14 @@ namespace RecordStoreTests.ServiceTests
         }
 
         [Test]
-        public void Test1()
+        public void Test_GetAllRecords_Invokes_Once()
         {
-            Assert.Pass();
+            //Arrange
+            //Act
+            _recordService.GetAllRecords();
+
+            //Assert
+            _mockRepository.Verify(x => x.GetAllRecords(), Times.Once);
         }
     }
 }
