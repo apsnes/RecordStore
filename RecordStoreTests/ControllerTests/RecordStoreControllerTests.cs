@@ -5,7 +5,7 @@ using RecordStore.Services;
 using Microsoft.AspNetCore.Mvc;
 using RecordStore.Entities;
 
-namespace RecordStoreTests
+namespace RecordStoreTests.ControllerTests
 {
     public class RecordStoreControllerTests
     {
