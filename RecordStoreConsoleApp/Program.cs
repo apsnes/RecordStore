@@ -16,18 +16,15 @@ namespace RecordStoreConsoleApp
         {
             var builder = CoconaApp.CreateBuilder();
 
-            //if (builder.Environment.IsDevelopment())
-            //{
-            //    if (builder.Configuration.GetValue<bool>("UseInMemoryDatabase")) builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseInMemoryDatabase("RecordStore"));
-            //    else builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer("Server=DESKTOP-39KBH2H\\SQLEXPRESS;Database=RecordStore;User Id=sa;Password=database;TrustServerCertificate=True"));
-            //}
-            //else
-            //{
-            //    builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            //}
-
-            //i'll fix this later
-            builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer("Server=DESKTOP-39KBH2H\\SQLEXPRESS;Database=RecordStore;User Id=sa;Password=database;TrustServerCertificate=True"));
+            if (builder.Environment.IsDevelopment())
+            {
+                if (builder.Configuration.GetValue<bool>("UseInMemoryDatabase")) builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseInMemoryDatabase("RecordStore"));
+                else builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer("Server=DESKTOP-39KBH2H\\SQLEXPRESS;Database=RecordStore;User Id=sa;Password=database;TrustServerCertificate=True"));
+            }
+            else
+            {
+                builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            }
             builder.Services.AddScoped<IRecordService, RecordService>();
             builder.Services.AddScoped<IRecordRepository, RecordRepository>();
 
