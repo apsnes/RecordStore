@@ -17,7 +17,7 @@ namespace RecordStoreTests.ControllerTests
             _mockService = new Mock<IRecordService>();
             _recordController = new RecordController(_mockService.Object);
         }
-
+        //--------Get Requests--------
         [Test]
         public void Test_GetAllRecords_NoData_Returns_BadRequest()
         {
@@ -67,6 +67,103 @@ namespace RecordStoreTests.ControllerTests
             result.Should().BeOfType<OkObjectResult>();
         }
         [Test]
+        public void Test_GetRecordsByArtist_NoData_Returns_BadRequest()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetRecordsByArtist(It.IsAny<string>())).Returns((false, null));
+
+            //Act
+            var result = _recordController.GetRecordsByArtist("artist");
+
+            //Assert
+            result.Should().BeOfType<BadRequestObjectResult>();
+        }
+        [Test]
+        public void Test_GetRecordsByArtist_ValidData_Returns_Ok()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetRecordsByArtist(It.IsAny<string>())).Returns((true, new List<Record>()));
+
+            //Act
+            var result = _recordController.GetRecordsByArtist("artist");
+
+            //Assert
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        [Test]
+        public void Test_GetRecordsByReleaseYear_NoData_Returns_BadRequest()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetRecordsByReleaseYear(It.IsAny<int>())).Returns((false, null));
+
+            //Act
+            var result = _recordController.GetRecordsByReleaseYear(10);
+
+            //Assert
+            result.Should().BeOfType<BadRequestObjectResult>();
+        }
+        [Test]
+        public void Test_GetRecordsByReleaseYear_ValidData_Returns_Ok()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetRecordsByReleaseYear(It.IsAny<int>())).Returns((true, new List<Record>()));
+
+            //Act
+            var result = _recordController.GetRecordsByReleaseYear(10);
+
+            //Assert
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        [Test]
+        public void Test_GetRecordsByGenre_NoData_Returns_BadRequest()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetRecordsByGenre(It.IsAny<string>())).Returns((false, null));
+
+            //Act
+            var result = _recordController.GetRecordsByGenre("test");
+
+            //Assert
+            result.Should().BeOfType<BadRequestObjectResult>();
+        }
+        [Test]
+        public void Test_GetRecordsByGenre_ValidData_Returns_Ok()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetRecordsByGenre(It.IsAny<string>())).Returns((true, new List<Record>()));
+
+            //Act
+            var result = _recordController.GetRecordsByGenre("test");
+
+            //Assert
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        [Test]
+        public void Test_GetRecordInfoByName_NoData_Returns_BadRequest()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetRecordInfoByName(It.IsAny<string>())).Returns((false, null));
+
+            //Act
+            var result = _recordController.GetRecordInfoByName("test");
+
+            //Assert
+            result.Should().BeOfType<BadRequestObjectResult>();
+        }
+        [Test]
+        public void Test_GetRecordInfoByName_ValidData_Returns_Ok()
+        {
+            //Arrange
+            _mockService.Setup(x => x.GetRecordInfoByName(It.IsAny<string>())).Returns((true, new Record()));
+
+            //Act
+            var result = _recordController.GetRecordInfoByName("test");
+
+            //Assert
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        //--------Post Requests--------
+        [Test]
         public void Test_AddRecord_ValidData_Returns_Ok()
         {
             //Arrange
@@ -104,6 +201,7 @@ namespace RecordStoreTests.ControllerTests
             //Assert
             result.Should().BeOfType<BadRequestObjectResult>();
         }
+        //--------Delete Requests--------
         [Test]
         public void Test_DeleteRecordById_ValidData_Returns_Ok()
         {
@@ -129,6 +227,7 @@ namespace RecordStoreTests.ControllerTests
             //Assert
             result.Should().BeOfType<BadRequestObjectResult>();
         }
+        //--------Put Requests--------
         [Test]
         public void Test_UpdateRecord_ValidData_Returns_Ok()
         {
