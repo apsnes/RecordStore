@@ -34,6 +34,7 @@ namespace RecordStoreConsoleApp
             var app = builder.Build();
 
             //Console app commands
+            //TODO - move into seperate RecordCommands class
             app.AddCommand("getallrecords", (IRecordService RecordService) =>
             {
                 var result = RecordService.GetAllRecords();
