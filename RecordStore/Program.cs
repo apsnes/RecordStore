@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
+using Microsoft.Extensions.Options;
+using RecordStore.Repository;
+using RecordStore.Services;
 
 namespace RecordStore
 {
@@ -9,20 +13,21 @@ namespace RecordStore
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<RecordStoreDbContext>(options =>
+            if (builder.Environment.IsDevelopment())
             {
-                if (builder.Environment.IsDevelopment())
-                {
-                    options.UseInMemoryDatabase("RecordStore");
-                }
-                else
-                {
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-                }
-            });
+                if (builder.Configuration.GetValue<bool>("UseInMemoryDatabase")) builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseInMemoryDatabase("RecordStore"));
+                else builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            }
+            else
+            {
+                builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            }
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IRecordService, RecordService>();
+            builder.Services.AddScoped<IRecordRepository, RecordRepository>();
 
             var app = builder.Build();
 

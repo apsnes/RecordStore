@@ -24,7 +24,7 @@ namespace RecordStoreTests.RepositoryTests
             var options = new DbContextOptionsBuilder<RecordStoreDbContext>()
                   .UseInMemoryDatabase("TestDb")
                   .Options;
-            _db = new RecordStoreDbContext(options);
+            using (_db = new RecordStoreDbContext(options)) ;
             _recordRepository = new RecordRepository(_db);
         }
         [Test]
