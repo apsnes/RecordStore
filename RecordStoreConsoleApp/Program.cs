@@ -20,10 +20,13 @@ namespace RecordStoreConsoleApp
             //ignore logs for pretty output
             builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.None);
 
+            //Tell cocona to access user secrets
+            builder.Configuration.AddUserSecrets<Program>();
+
             if (builder.Environment.IsDevelopment())
             {
                 if (builder.Configuration.GetValue<bool>("UseInMemoryDatabase")) builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseInMemoryDatabase("RecordStore"));
-                else builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer("Server=DESKTOP-39KBH2H\\SQLEXPRESS;Database=RecordStore;User Id=sa;Password=database;TrustServerCertificate=True"));
+                else builder.Services.AddDbContext<RecordStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             }
             else
             {
