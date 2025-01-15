@@ -17,13 +17,13 @@ This is a record store application for managing inventory via Http requests or v
 - Get all records currently in stock:
   dotnet run get-all-records
 - Get record by id:
-  dotnet run get-record-by-id --id <id>
+  dotnet run get-record-by-id --id <"id">
 - Get records by artist:
   dotnet run get-records-by-artist --artist <"artist">
 - Get records by genre:
   dotnet run get-records-by-genre --genre <"genre">
 - Get records by release year:
-  dotnet run get-records-by-release-year --year <year>
+  dotnet run get-records-by-release-year --year <"year">
 - Get record by name:
   dotnet run get-record-info-by-name --name <"name">
 
