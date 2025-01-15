@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordStore", "RecordStore\RecordStore.csproj", "{2AB657CA-9D09-411A-934B-13DDB600913E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordStoreTests", "RecordStoreTests\RecordStoreTests.csproj", "{4AA70D01-E421-43D5-AC4C-FBBEBE7F3B88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordStoreConsoleApp", "RecordStoreConsoleApp\RecordStoreConsoleApp.csproj", "{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4AA70D01-E421-43D5-AC4C-FBBEBE7F3B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AA70D01-E421-43D5-AC4C-FBBEBE7F3B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AA70D01-E421-43D5-AC4C-FBBEBE7F3B88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
