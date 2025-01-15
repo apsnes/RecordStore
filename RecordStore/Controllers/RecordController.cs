@@ -13,6 +13,7 @@ namespace RecordStore.Controllers
         {
             _recordService = recordService;
         }
+        //---------Get Requests---------
         [HttpGet]
         public IActionResult GetAllRecords()
         {
@@ -27,6 +28,35 @@ namespace RecordStore.Controllers
             if (result.Item1 == false) return BadRequest("Record not found");
             return Ok(result.Item2);
         }
+        [HttpGet("artist/{artist}")]
+        public IActionResult GetRecordsByArtist(string artist)
+        {
+            var result = _recordService.GetRecordsByArtist(artist);
+            if (result.Item1 == false) return BadRequest("No records found");
+            return Ok(result.Item2);
+        }
+        [HttpGet("year/{year}")]
+        public IActionResult GetRecordsByReleaseYear(int year)
+        {
+            var result = _recordService.GetRecordsByReleaseYear(year);
+            if (result.Item1 == false) return BadRequest("No records found");
+            return Ok(result.Item2);
+        }
+        [HttpGet("genre/{genre}")]
+        public IActionResult GetRecordsByGenre(string genre)
+        {
+            var result = _recordService.GetRecordsByGenre(genre);
+            if (result.Item1 == false) return BadRequest("No records found");
+            return Ok(result.Item2);
+        }
+        [HttpGet("record/{recordName}")]
+        public IActionResult GetRecordInfoByName(string recordName)
+        {
+            var result = _recordService.GetRecordInfoByName(recordName);
+            if (result.Item1 == false) return BadRequest("Record not found");
+            return Ok(result.Item2);
+        }
+        //---------Post Requests---------
         [HttpPost]
         public IActionResult AddRecord([FromBody] Record record)
         {
@@ -34,6 +64,7 @@ namespace RecordStore.Controllers
             if (result.Item1 == false) return BadRequest("Unable to add record");
             return Ok(result.Item2);
         }
+        //---------Delete Requests---------
         [HttpDelete("{id}")]
         public IActionResult DeleteRecordById(int id)
         {
@@ -41,6 +72,7 @@ namespace RecordStore.Controllers
             if (result.Item1 == false) return BadRequest("Record not found");
             return Ok(result.Item2);
         }
+        //---------Put Requests---------
         [HttpPut]
         public IActionResult UpdateRecord(Record record)
         {

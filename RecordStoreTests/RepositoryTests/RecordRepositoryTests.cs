@@ -24,9 +24,15 @@ namespace RecordStoreTests.RepositoryTests
             var options = new DbContextOptionsBuilder<RecordStoreDbContext>()
                   .UseInMemoryDatabase("TestDb")
                   .Options;
-            using (_db = new RecordStoreDbContext(options)) ;
+            _db = new RecordStoreDbContext(options);
             _recordRepository = new RecordRepository(_db);
         }
+        [TearDown]
+        public void TearDown()
+        {
+            _db.Dispose();
+        }
+        //--------Get Requests--------
         [Test]
         public void Test_GetAllRecords_NoData_Returns_False()
         {
@@ -80,6 +86,111 @@ namespace RecordStoreTests.RepositoryTests
             result.Item1.Should().BeTrue();
         }
         [Test]
+        public void Test_GetRecordsByArtist_NoData_Returns_False()
+        {
+            //Arrange
+            _db.Database.EnsureDeleted();
+
+            //Act
+            var result = _recordRepository.GetRecordsByArtist("tester");
+
+            //Assert
+            result.Item1.Should().BeFalse();
+        }
+        [Test]
+        public void Test_GetRecordsByArtist_ValidData_Returns_True()
+        {
+            //Arrange
+            _db.Database.EnsureDeleted();
+            _db.Records.Add(new Record { Id = 1, Artist = "Artist1", Title = "Title1", ReleaseYear = 10, Genre = "rest" });
+            _db.SaveChanges();
+
+            //Act
+            var result = _recordRepository.GetRecordsByArtist("Artist1");
+
+            //Assert
+            result.Item1.Should().BeTrue();
+        }
+        [Test]
+        public void Test_GetRecordsByYear_NoData_Returns_False()
+        {
+            //Arrange
+            _db.Database.EnsureDeleted();
+
+            //Act
+            var result = _recordRepository.GetRecordsByReleaseYear(2000);
+
+            //Assert
+            result.Item1.Should().BeFalse();
+        }
+        [Test]
+        public void Test_GetRecordsByYear_ValidData_Returns_True()
+        {
+            //Arrange
+            _db.Database.EnsureDeleted();
+            _db.Records.Add(new Record { Id = 1, Artist = "Artist1", Title = "Title1", ReleaseYear = 10, Genre = "rest" });
+            _db.SaveChanges();
+
+            //Act
+            var result = _recordRepository.GetRecordsByReleaseYear(10);
+
+            //Assert
+            result.Item1.Should().BeTrue();
+        }
+        [Test]
+        public void Test_GetRecordsByGenre_NoData_Returns_False()
+        {
+            //Arrange
+            _db.Database.EnsureDeleted();
+
+            //Act
+            var result = _recordRepository.GetRecordsByGenre("test");
+
+            //Assert
+            result.Item1.Should().BeFalse();
+        }
+        [Test]
+        public void Test_GetRecordsByGenre_ValidData_Returns_True()
+        {
+            //Arrange
+            _db.Database.EnsureDeleted();
+            _db.Records.Add(new Record { Id = 1, Artist = "Artist1", Title = "Title1", ReleaseYear = 10, Genre = "rest" });
+            _db.SaveChanges();
+
+            //Act
+            var result = _recordRepository.GetRecordsByGenre("rest");
+
+            //Assert
+            result.Item1.Should().BeTrue();
+        }
+        [Test]
+        public void Test_GetRecordInfoByName_NoData_Returns_False()
+        {
+            //Arrange
+            _db.Database.EnsureDeleted();
+
+            //Act
+            var result = _recordRepository.GetRecordInfoByName("Title1");
+
+            //Assert
+            result.Item1.Should().BeFalse();
+        }
+        [Test]
+        public void Test_GetRecordInfoByName_ValidRecord_Returns_True()
+        {
+            //Arrange
+            _db.Database.EnsureDeleted();
+            _db.Records.Add(new Record { Id = 1, Artist = "Artist1", Title = "Title1", ReleaseYear = 10, Genre = "rest" });
+            _db.SaveChanges();
+
+            //Act
+            var result = _recordRepository.GetRecordInfoByName("Title1");
+
+            //Assert
+            result.Item1.Should().BeTrue();
+        }
+        //--------Post Requests--------
+        [Test]
         public void Test_AddRecord_ValidData_Changes_Correct_Number_Of_Rows()
         {
             //Arrange
@@ -93,6 +204,7 @@ namespace RecordStoreTests.RepositoryTests
             //Assert
             result.Item1.Should().BeTrue();
         }
+        //--------Delete Requests--------
         [Test]
         public void Test_DeleteRecordById_ValidData_Changes_Correct_Number_Of_Rows()
         {
@@ -122,6 +234,7 @@ namespace RecordStoreTests.RepositoryTests
             //Assert
             result.Item1.Should().BeFalse();
         }
+        //---------Put Requests----------
         [Test]
         public void Test_UpdateRecord_ValidRecord_Changes_Correct_Number_Of_Rows()
         {
