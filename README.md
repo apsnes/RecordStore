@@ -1,6 +1,3 @@
-This is a record store application for managing inventory
-
-
 ## About
 This is a record store application for managing inventory via Http requests or via a cocona CLI.
 
