@@ -17,7 +17,7 @@ namespace RecordStoreConsoleApp
             _recordService = recordService;
         }
         //Ignore async await warnings until i fix it :)
-        #pragma warning disable CS1998
+#pragma warning disable CS1998
         public async Task GetAllRecords()
         {
             var result = _recordService.GetAllRecords();
