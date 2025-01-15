@@ -7,6 +7,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace RecordStoreConsoleApp
 {
@@ -15,6 +16,9 @@ namespace RecordStoreConsoleApp
         static void Main(string[] args)
         {
             var builder = CoconaApp.CreateBuilder();
+
+            //ignore logs for pretty output
+            builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.None);
 
             if (builder.Environment.IsDevelopment())
             {
@@ -30,44 +34,7 @@ namespace RecordStoreConsoleApp
 
             var app = builder.Build();
 
-            //Console app commands
-            //TODO - move into seperate RecordCommands class
-            app.AddCommand("getallrecords", (IRecordService RecordService) =>
-            {
-                var result = RecordService.GetAllRecords();
-                if (result.Item1 == false) Console.WriteLine("Unable to find any records");
-                else result.Item2.ForEach(r => Console.WriteLine(JsonSerializer.Serialize(r, new JsonSerializerOptions { WriteIndented = true })));
-            });
-            app.AddCommand("getrecordbyid", (int id, IRecordService RecordService) =>
-            {
-                var result = RecordService.GetRecordById(id);
-                if (result.Item1 == false) Console.WriteLine("Unable to find any records");
-                else Console.WriteLine(JsonSerializer.Serialize(result.Item2, new JsonSerializerOptions { WriteIndented = true }));
-            });
-            app.AddCommand("getrecordsbyartist", (string artist, IRecordService RecordService) =>
-            {
-                var result = RecordService.GetRecordsByArtist(artist);
-                if (result.Item1 == false) Console.WriteLine("Unable to find any records");
-                else Console.WriteLine(JsonSerializer.Serialize(result.Item2, new JsonSerializerOptions { WriteIndented = true }));
-            });
-            app.AddCommand("getrecordsbygenre", (string genre, IRecordService RecordService) =>
-            {
-                var result = RecordService.GetRecordsByGenre(genre);
-                if (result.Item1 == false) Console.WriteLine("Unable to find any records");
-                else Console.WriteLine(JsonSerializer.Serialize(result.Item2, new JsonSerializerOptions { WriteIndented = true }));
-            });
-            app.AddCommand("getrecordsbyreleaseyear", (int year, IRecordService RecordService) =>
-            {
-                var result = RecordService.GetRecordsByReleaseYear(year);
-                if (result.Item1 == false) Console.WriteLine("Unable to find any records");
-                else Console.WriteLine(JsonSerializer.Serialize(result.Item2, new JsonSerializerOptions { WriteIndented = true }));
-            });
-            app.AddCommand("getrecordinfobyname", (string name, IRecordService RecordService) =>
-            {
-                var result = RecordService.GetRecordInfoByName(name);
-                if (result.Item1 == false) Console.WriteLine("Unable to find any records");
-                else Console.WriteLine(JsonSerializer.Serialize(result.Item2, new JsonSerializerOptions { WriteIndented = true }));
-            });
+            app.AddCommands<RecordCommands>();
 
             app.Run();
         }
