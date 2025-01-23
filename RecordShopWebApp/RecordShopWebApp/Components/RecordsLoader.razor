@@ -1,0 +1,32 @@
+﻿@using RecordStore.Entities
+
+@if(RecordList == null)
+{
+    <p>Loading...</p>
+}
+else if (RecordList.Count == 0)
+{
+    <p>No records found</p>
+}
+else
+{
+    <RecordSummaryList RecordList="RecordList" />
+})
+
+@code
+{
+    [Parameter] public List<Record> RecordList { get; set; }
+    private HttpClient httpClient;
+    protected override async Task OnInitializedAsync()
+    {
+        httpClient = new();
+        try
+        {
+            RecordList = await httpClient.GetFromJsonAsync<List<Record>>("https://localhost:7244/api/record");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error fetching records: {ex.Message}");
+        }
+    }
+}
