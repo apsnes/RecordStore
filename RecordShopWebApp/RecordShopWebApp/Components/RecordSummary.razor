@@ -1,12 +1,11 @@
 ﻿@using RecordStore.Entities
-@rendermode InteractiveAuto
 
-<div class="box has-background-success-light has-text-black">
-    <h4>@CurrentRecord.Title Summary</h4>
-    <p>Record ID: @CurrentRecord.Id</p>
-    <p>Artist: @CurrentRecord.Artist</p>
-    <p>Genre: @CurrentRecord.Genre</p>
-    <p>Release Year: @CurrentRecord.ReleaseYear</p>
+<div class="card has-background-grey-dark has-text-success-light p-2">
+    <h4 class="card-title">@CurrentRecord.Title</h4>
+    <p class="card-text">Record ID: @CurrentRecord.Id</p>
+    <p class="card-text">Artist: @CurrentRecord.Artist</p>
+    <p class="card-text">Genre: @CurrentRecord.Genre</p>
+    <p class="card-text">Release Year: @CurrentRecord.ReleaseYear</p>
 </div>
 
 @code

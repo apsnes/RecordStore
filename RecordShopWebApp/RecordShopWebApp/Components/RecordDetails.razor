@@ -1,0 +1,31 @@
+﻿@rendermode InteractiveServer
+
+<div class="card has-background-grey-dark has-text-success-light p-2">
+    <h4 class="card-title">@CurrentRecord.Title</h4>
+    <p class="card-text">Record ID: @CurrentRecord.Id</p>
+    <p class="card-text">Artist: @CurrentRecord.Artist</p>
+    <p class="card-text">Genre: @CurrentRecord.Genre</p>
+    <p class="card-text">Release Year: @CurrentRecord.ReleaseYear</p>
+    <InputText @bind-Value="newTitle" placeholder="Title" />
+    <InputText @bind-Value="newArtist" placeholder="Artist" />
+    <InputText @bind-Value="newGenre" placeholder="Genre" />
+    <InputNumber @bind-Value="newYear" placeholder="Release Year" />
+    <button class="button p-1 pt-0 pb0" @onclick="UpdateCurrentRecord">Save Changes</button>
+</div>
+
+@code
+{
+    [Parameter] public Record CurrentRecord { get; set; }
+    private string newTitle = string.Empty;
+    private string newArtist = string.Empty;
+    private string newGenre = string.Empty;
+    private int newYear;
+
+    private void UpdateCurrentRecord()
+    {
+        if (!string.IsNullOrEmpty(newTitle)) CurrentRecord.Title = newTitle;
+        if (!string.IsNullOrEmpty(newArtist)) CurrentRecord.Artist = newArtist;
+        if (!string.IsNullOrEmpty(newGenre)) CurrentRecord.Genre = newGenre;
+        if (newYear != null) CurrentRecord.ReleaseYear = newYear;
+    }
+}

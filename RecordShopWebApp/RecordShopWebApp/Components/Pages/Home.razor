@@ -5,12 +5,9 @@
 
 <PageTitle>Home</PageTitle>
 
-<RecordsLoader RecordList="AllRecords"/>
-
-<section>
-
-</section>
+<!--<RecordsLoader />-->
+<RecordDetails CurrentRecord="testRecord"/>
 
 @code {
-    private List<Record> AllRecords = new();
+    Record testRecord = new Record { Id = 1, Title = "Test", Artist = "sfdf", Genre = "sdfsdf", ReleaseYear = 1222 };
 }

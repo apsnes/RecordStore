@@ -1,11 +1,13 @@
 ﻿@using RecordStore.Entities
 
-<h4>RecordSummaryList</h4>
-@foreach (var record in RecordList)
-{
-    <RecordSummary CurrentRecord="record" />
-})
 
+<h4 class="has-text-grey-dark p-2">RecordSummaryList</h4>
+<div class="columns is-centered m-2">
+    @foreach (var record in RecordList)
+    {
+        <RecordSummary CurrentRecord="record" />
+    }
+</div>
 @code {
     [Parameter] public List<Record> RecordList { get; set; }
 }

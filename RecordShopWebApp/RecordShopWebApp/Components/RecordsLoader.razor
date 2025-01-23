@@ -1,28 +1,29 @@
 ﻿@using RecordStore.Entities
+@using RecordShopWebApp.Components
 
-@if(RecordList == null)
+@if(AllRecords == null)
 {
     <p>Loading...</p>
 }
-else if (RecordList.Count == 0)
+else if (AllRecords.Count == 0)
 {
     <p>No records found</p>
 }
 else
 {
-    <RecordSummaryList RecordList="RecordList" />
-})
+    <RecordSummaryList RecordList="AllRecords" />
+}
 
 @code
 {
-    [Parameter] public List<Record> RecordList { get; set; }
+    public List<Record> AllRecords { get; set; } = new();
     private HttpClient httpClient;
     protected override async Task OnInitializedAsync()
     {
         httpClient = new();
         try
         {
-            RecordList = await httpClient.GetFromJsonAsync<List<Record>>("https://localhost:7244/api/record");
+            AllRecords = await httpClient.GetFromJsonAsync<List<Record>>("https://localhost:7244/api/record");
         }
         catch (Exception ex)
         {
