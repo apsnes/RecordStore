@@ -1,0 +1,11 @@
+﻿@using RecordStore.Entities
+
+<h4>RecordSummaryList</h4>
+@foreach (var record in RecordList)
+{
+    <RecordSummary CurrentRecord="record" />
+})
+
+@code {
+    [Parameter] public List<Record> RecordList { get; set; }
+}

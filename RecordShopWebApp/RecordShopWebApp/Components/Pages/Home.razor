@@ -1,0 +1,19 @@
+﻿@using RecordStore.Entities
+@using RecordShopWebApp.Components
+
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<RecordSummaryList RecordList="testRecords"/>
+
+<section>
+
+</section>
+
+@code {
+    private List<Record> testRecords = [
+    new Record { Id = 1, Title = "Test Record", Artist = "Test Artist", Genre = "Test Genre", ReleaseYear = 2021 },
+    new Record { Id = 2, Title = "Test Record2", Artist = "Test Artist2", Genre = "Test Genre2", ReleaseYear = 2022 }
+    ];
+}

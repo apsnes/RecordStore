@@ -1,0 +1,15 @@
+﻿@using RecordStore.Entities
+@rendermode InteractiveAuto
+
+<div class="box has-background-success-light has-text-black">
+    <h4>@CurrentRecord.Title Summary</h4>
+    <p>Record ID: @CurrentRecord.Id</p>
+    <p>Artist: @CurrentRecord.Artist</p>
+    <p>Genre: @CurrentRecord.Genre</p>
+    <p>Release Year: @CurrentRecord.ReleaseYear</p>
+</div>
+
+@code
+{
+    [Parameter] public Record CurrentRecord { get; set; }
+}

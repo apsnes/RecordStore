@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordStoreTests", "RecordS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordStoreConsoleApp", "RecordStoreConsoleApp\RecordStoreConsoleApp.csproj", "{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordShopWebApp", "RecordShopWebApp\RecordShopWebApp\RecordShopWebApp.csproj", "{FA91F473-E784-456A-8113-B40F5595882C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordShopWebApp.Client", "RecordShopWebApp\RecordShopWebApp.Client\RecordShopWebApp.Client.csproj", "{E129E0ED-2128-4500-8AEB-AF7CF1BE0378}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FF3E13F-2BF4-4344-A7AC-4A5FAD9550BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA91F473-E784-456A-8113-B40F5595882C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA91F473-E784-456A-8113-B40F5595882C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA91F473-E784-456A-8113-B40F5595882C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA91F473-E784-456A-8113-B40F5595882C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E129E0ED-2128-4500-8AEB-AF7CF1BE0378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E129E0ED-2128-4500-8AEB-AF7CF1BE0378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E129E0ED-2128-4500-8AEB-AF7CF1BE0378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E129E0ED-2128-4500-8AEB-AF7CF1BE0378}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
