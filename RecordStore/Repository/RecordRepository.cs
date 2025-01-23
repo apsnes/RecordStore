@@ -82,6 +82,7 @@ namespace RecordStore.Repository
                 return (false, null);
             }
             _db.Entry(foundRecord).CurrentValues.SetValues(record);
+            _db.Update(foundRecord);
             var result = _db.SaveChanges();
             return (result == 1, record);
         }
