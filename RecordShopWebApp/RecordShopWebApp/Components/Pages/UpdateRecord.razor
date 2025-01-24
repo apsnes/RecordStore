@@ -1,13 +1,13 @@
 ﻿@rendermode InteractiveServer
 @page "/records/update/{RecordId:int}"
 
-<div class="columns has-text-success-light">
-    <div class="column is-one-quarter">
+<div class="is-flex is-justify-content-center is-align-items-center">
+    <div class="has-text-success-light box is-flex is-flex-direction-column is-align-items-center">
         <InputText @bind-Value="recordWithNewDetails.Title" class="input has-text-success-light m-1" placeholder="Title" />
         <InputText @bind-Value="recordWithNewDetails.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
         <InputText @bind-Value="recordWithNewDetails.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
         <InputNumber @bind-Value="recordWithNewDetails.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
-        <button class="button is-primary has-text-success-light has-background-grey-dark mt-5 ml-1" @onclick="() => UpdateCurrentRecord()">Save Changes</button>
+        <button class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1" @onclick="() => UpdateCurrentRecord()">Add Record</button>
     </div>
 </div>
 
