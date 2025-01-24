@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecordStore;
 
@@ -10,9 +11,11 @@ using RecordStore;
 namespace RecordStore.Migrations
 {
     [DbContext(typeof(RecordStoreDbContext))]
-    partial class RecordStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250124212702_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,9 +41,6 @@ namespace RecordStore.Migrations
                     b.Property<int>("ReleaseYear")
                         .HasColumnType("int");
 
-                    b.Property<string>("SpotifyEmbed")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -55,7 +55,6 @@ namespace RecordStore.Migrations
                             Artist = "Pink Floyd",
                             Genre = "Progressive Rock",
                             ReleaseYear = 1973,
-                            SpotifyEmbed = "https://open.spotify.com/embed/album/4LH4d3cOWNNsVw41Gqt2kv?utm_source=generator",
                             Title = "The Dark Side of the Moon"
                         },
                         new
@@ -64,7 +63,6 @@ namespace RecordStore.Migrations
                             Artist = "The Beatles",
                             Genre = "Rock",
                             ReleaseYear = 1969,
-                            SpotifyEmbed = "https://open.spotify.com/embed/album/0ETFjACtuP2ADo6LFhL6HN?utm_source=generator",
                             Title = "Abbey Road"
                         },
                         new
@@ -73,7 +71,6 @@ namespace RecordStore.Migrations
                             Artist = "Michael Jackson",
                             Genre = "Pop",
                             ReleaseYear = 1982,
-                            SpotifyEmbed = "https://open.spotify.com/embed/track/3S2R0EVwBSAVMd5UMgKTL0?utm_source=generator",
                             Title = "Thriller"
                         });
                 });

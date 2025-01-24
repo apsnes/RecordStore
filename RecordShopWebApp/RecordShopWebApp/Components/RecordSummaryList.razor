@@ -2,13 +2,13 @@
 @rendermode InteractiveServer
 @using RecordStore.Entities
 
-
-<h4 class="has-text-grey-dark p-2">RecordSummaryList</h4>
-<div class="columns is-centered m-2">
+<div class="columns is-multiline is-variable is-3 m-5">
     @foreach (var record in RecordList)
     {
-        <div class="box is-clickable" @onclick="() => NavigateToRecord(record.Id)">
-            <RecordSummary CurrentRecord="record" />
+        <div class="column is-3 is-full-mobile">
+            <div class="box is-clickable" @onclick="() => NavigateToRecord(record.Id)">
+                <RecordSummary CurrentRecord="record" />
+            </div>
         </div>
     }
 </div>

@@ -1,12 +1,65 @@
 ﻿@using RecordStore.Entities
 @using RecordShopWebApp.Components
+@using System.Globalization
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
 
 @page "/"
 
 <PageTitle>Home</PageTitle>
+<div class="box has-background-dark m-5">
+    <div class="columns is-align-items-center">
+        <div class="column has-background-dark">
+            <div class="box">
+                <div class="box has-background-grey-dark has-text-success-light">
+                    <p>Record of the week week @weekNumber: @currentRecord.Title</p>
+                    <p>
+                        okem ipsum dolor sit amet Seviper Politoed Fuchsia City Azurill Great Ball like no one ever was. Bug to protect the world from devastation Piplup Persian Azelf Shellder consectetur adipisicing elit. Lorem ipsum dolor sit amet Kyurem Torkoal Swanna Mantine Sonic Boom prepare for trouble. Growl Youngster wants to fight Gliscor Lucario Growlithe Medicham Toxicroak. Sonic Boom Gloom Swift Staravia Scraggy Thundershock Ferrothorn.
 
-<RecordSummary CurrentRecord="testRecord"/>
+                        Wartortle Nidorina Weavile Lucario Psychic Simisage Mightyena. Quis nostrud exercitation ullamco laboris nisi Vanillish Phanpy Nurse Joy Eelektross Kingler Torkoal. Misty Wingull Bouffalant anim id est laborum Seaking Ferrothorn Smoochum. Poison Cacnea Grimer Dig Ursaring Medicham Amoonguss. Normal Pokemon Heroes Horsea Sawsbuck Leaf Green Scratch Storm Badge. Normal Pokemon Heroes Horsea Sawsbuck Leaf Green Scratch Storm Badge.
+                    </p>
+                </div>
+        </div>
+    </div>
+        @if (currentRecord.Id == 0)
+        {
+            <div class="column is-flex is-justify-content-center is-align-items-center">
+                <p>Loading...</p>
+            </div>
+        }
+        else
+        {
+            <div class="column is-3 is-full-mobile is-flex is-justify-content-center is-align-items-center">
+                <div class="box is-clickable" @onclick="() => NavigateToRecord(currentRecord.Id)">
+                    <RecordSummary CurrentRecord="currentRecord" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@code
+{
+    private int weekNumber = 37;
+    private Record? currentRecord = new();
+    private HttpClient client;
 
-@code {
-    Record testRecord = new Record { Id = 1, Title = "Test", Artist = "sfdf", Genre = "sdfsdf", ReleaseYear = 1222 };
+    protected override async Task OnInitializedAsync()
+    {
+        //weekNumber = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.UtcNow, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+        client = new();
+        try
+        {
+            currentRecord = await client.GetFromJsonAsync<Record>($"https://localhost:7244/api/record/{weekNumber}");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error fetching record: {ex.Message}");
+        }
+    }
+
+    private void NavigateToRecord(int recordId)
+    {
+        Navigation.NavigateTo($"/records/{recordId}");
+    }
 }
