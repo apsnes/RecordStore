@@ -1,0 +1,38 @@
+﻿@rendermode InteractiveServer
+@page "/records/update/{RecordId:int}"
+
+<div class="columns has-text-success-light">
+    <div class="column is-one-quarter">
+        <InputText @bind-Value="recordWithNewDetails.Title" class="input has-text-success-light m-1" placeholder="Title" />
+        <InputText @bind-Value="recordWithNewDetails.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
+        <InputText @bind-Value="recordWithNewDetails.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
+        <InputNumber @bind-Value="recordWithNewDetails.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
+        <button class="button is-primary has-text-success-light has-background-grey-dark mt-5 ml-1" @onclick="() => UpdateCurrentRecord()">Save Changes</button>
+    </div>
+</div>
+
+<p class="has-text-grey-dark">@FormStatus</p>
+
+@code
+{
+    [Parameter] public int RecordId { get; set; }
+    public Record recordWithNewDetails = new();
+    public string FormStatus = string.Empty;
+
+    private async Task UpdateCurrentRecord()
+    {
+        using (HttpClient client = new())
+        {
+            recordWithNewDetails.Id = RecordId;
+            var response = await client.PutAsJsonAsync($"https://localhost:7244/api/record", recordWithNewDetails);
+            if (response == null || !response.IsSuccessStatusCode)
+            {
+                FormStatus = $"Unable to update record details. Please try again. {response.StatusCode}";
+            }
+            else
+            {
+                FormStatus = $"Record {RecordId} successfully updated!";
+            }
+        }
+    }
+}

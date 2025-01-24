@@ -20,7 +20,7 @@
 
     private async void AddRecord()
     {
-        if (CurrentRecord.Title == null || CurrentRecord.Artist == null || CurrentRecord.Genre == null || CurrentRecord.ReleaseYear <= 0 || CurrentRecord.ReleaseYear.GetType() == typeof(string))
+        if (CurrentRecord.Title == null || CurrentRecord.Artist == null || CurrentRecord.Genre == null || CurrentRecord.ReleaseYear <= 0)
         {
             FormStatus = "Error in form, please try again";
             return;
@@ -29,8 +29,7 @@
         using (HttpClient client = new())
         {
             var response = await client.PostAsJsonAsync($"https://localhost:7244/api/record", CurrentRecord);
-            if (response == null || !response.IsSuccessStatusCode) FormStatus = "Error in form, please try again";
-            else FormStatus = $"{CurrentRecord.Title} successfully added!";
         }
+        FormStatus = $"{CurrentRecord.Title} successfully added!";
     }
 }

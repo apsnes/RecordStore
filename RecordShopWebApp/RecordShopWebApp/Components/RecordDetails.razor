@@ -1,4 +1,5 @@
-﻿@rendermode InteractiveServer
+﻿@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 <div class="card has-background-grey-dark has-text-success-light p-2">
     <h4 class="card-title">@CurrentRecord.Title</h4>
@@ -6,27 +7,21 @@
     <p class="card-text">Artist: @CurrentRecord.Artist</p>
     <p class="card-text">Genre: @CurrentRecord.Genre</p>
     <p class="card-text">Release Year: @CurrentRecord.ReleaseYear</p>
-    <InputText @bind-Value="CurrentRecord.Title" placeholder="Title" />
-    <InputText @bind-Value="CurrentRecord.Artist" placeholder="Artist" />
-    <InputText @bind-Value="CurrentRecord.Genre" placeholder="Genre" />
-    <InputNumber @bind-Value="CurrentRecord.ReleaseYear" placeholder="Release Year" />
-    <button class="button p-1 pt-0 pb0" @onclick="UpdateCurrentRecord">Save Changes</button>
 </div>
+
+<button class="button is-primary has-background-grey-dark has-text-success-light mt-2 ml-1" @onclick="() => NavigateToUpdateRecord()">Update Record</button>
+<button class="button is-primary has-background-grey-dark has-text-danger mt-2 ml-1" @onclick="() => NavigateToDeleteRecord()">Delete Record</button>
 
 @code
 {
     [Parameter] public Record CurrentRecord { get; set; }
 
-    private async void UpdateCurrentRecord()
+    private void NavigateToUpdateRecord()
     {
-        using (var httpClient = new HttpClient())
-        {
-            var response = await httpClient.PutAsJsonAsync($"https://localhost:7244/api/record", CurrentRecord);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine($"Failed to update record. Status code: {response.StatusCode}");
-            }
-        }
+        NavigationManager.NavigateTo($"/records/update/{CurrentRecord.Id}");
+    }
+    private void NavigateToDeleteRecord()
+    {
+        NavigationManager.NavigateTo($"/records/delete/{CurrentRecord.Id}");
     }
 }

@@ -76,6 +76,7 @@ namespace RecordStore.Controllers
         [HttpPut]
         public IActionResult UpdateRecord(Record record)
         {
+            Console.WriteLine("Ive been called!");
             var result = _recordService.UpdateRecord(record);
             if (result.Item1 == false) return BadRequest($"Record with id: {record.Id} not found");
             return Ok(result.Item2);

@@ -81,7 +81,10 @@ namespace RecordStore.Repository
             {
                 return (false, null);
             }
-            _db.Entry(foundRecord).CurrentValues.SetValues(record);
+            if (record.Title != null) foundRecord.Title = record.Title;
+            if (record.Artist != null) foundRecord.Artist = record.Artist;
+            if (record.Genre != null) foundRecord.Genre = record.Genre;
+            if (record.ReleaseYear != 0) foundRecord.ReleaseYear = record.ReleaseYear;
             _db.Update(foundRecord);
             var result = _db.SaveChanges();
             return (result == 1, record);
