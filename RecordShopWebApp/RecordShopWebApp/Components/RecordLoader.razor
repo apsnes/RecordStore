@@ -1,0 +1,33 @@
+﻿@using RecordStore.Entities
+@using RecordShopWebApp.Components
+
+@if (currentRecord == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <RecordSummary CurrentRecord="currentRecord" />
+}
+
+@code
+{
+    [Parameter] public int CurrentRecordId { get; set; }
+
+    private Record currentRecord { get; set; }
+
+    private HttpClient httpClient;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        httpClient = new();
+        try
+        {
+            currentRecord = await httpClient.GetFromJsonAsync<Record>($"https://localhost:7244/api/record/{CurrentRecordId}");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error fetching record: {ex.Message}");
+        }
+    }
+}
