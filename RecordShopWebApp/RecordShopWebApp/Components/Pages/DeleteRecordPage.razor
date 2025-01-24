@@ -2,10 +2,11 @@
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-<div class="columns mt-5 mb-5">
-    <div class="box is-one-quarter is-offset-4 has-background-dark">
-        <label class="mt-2 has-text-danger has-text-weight-bold">Confirm deletion of Record @Id</label><InputCheckbox @bind-Value="confirmDelete" class="m-1 mr-0" />
-        <button class="has-text-grey-dark has-background-danger button is-primary ml-2" @onclick="() => DeleteRecord()">Delete</button>
+<div class="is-flex is-justify-content-center is-align-items-center">
+    <div class="has-background-grey-dark box is-flex is-align-items-center">
+        <label class="mr-2 has-text-danger has-text-weight-bold">Confirm deletion of Record @Id</label>
+        <InputCheckbox @bind-Value="confirmDelete" class="mr-2" />
+        <button class="has-text-grey-dark has-background-danger button is-primary" @onclick="() => DeleteRecord()">Delete</button>
     </div>
 </div>
 

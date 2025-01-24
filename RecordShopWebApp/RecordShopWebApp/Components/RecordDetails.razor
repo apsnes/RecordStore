@@ -9,8 +9,10 @@
     <p class="card-text">Release Year: @CurrentRecord.ReleaseYear</p>
 </div>
 
-<button class="button is-primary has-background-grey-dark has-text-success-light mt-2 ml-1" @onclick="() => NavigateToUpdateRecord()">Update Record</button>
-<button class="button is-primary has-background-grey-dark has-text-danger mt-2 ml-1" @onclick="() => NavigateToDeleteRecord()">Delete Record</button>
+<div class="is-flex is-justify-content-center is-align-items-center">
+        <button class="button is-primary has-background-grey-dark has-text-success-light mt-2 ml-1" @onclick="() => NavigateToUpdateRecord()">Update Record</button>
+        <button class="button is-primary has-background-grey-dark has-text-danger mt-2 ml-1" @onclick="() => NavigateToDeleteRecord()">Delete Record</button>
+</div>
 
 @code
 {
