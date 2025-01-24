@@ -1,0 +1,36 @@
+﻿@page "/records/add"
+@rendermode InteractiveServer
+
+<div class="columns has-text-success-light">
+    <div class="column is-one-quarter">
+        <InputText @bind-Value="CurrentRecord.Title" class="input has-text-success-light m-1" placeholder="Title" />
+        <InputText @bind-Value="CurrentRecord.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
+        <InputText @bind-Value="CurrentRecord.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
+        <InputNumber @bind-Value="CurrentRecord.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
+        <button class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1" @onclick="() => AddRecord()">Add Record</button>
+    </div>
+</div>
+
+<p class="has-text-grey-dark">@FormStatus</p>
+
+@code
+{
+    private Record CurrentRecord = new();
+    private string FormStatus = string.Empty;
+
+    private async void AddRecord()
+    {
+        if (CurrentRecord.Title == null || CurrentRecord.Artist == null || CurrentRecord.Genre == null || CurrentRecord.ReleaseYear <= 0 || CurrentRecord.ReleaseYear.GetType() == typeof(string))
+        {
+            FormStatus = "Error in form, please try again";
+            return;
+        }
+
+        using (HttpClient client = new())
+        {
+            var response = await client.PostAsJsonAsync($"https://localhost:7244/api/record", CurrentRecord);
+            if (response == null || !response.IsSuccessStatusCode) FormStatus = "Error in form, please try again";
+            else FormStatus = $"{CurrentRecord.Title} successfully added!";
+        }
+    }
+}

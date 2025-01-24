@@ -23,11 +23,7 @@
         {
             var response = await httpClient.PutAsJsonAsync($"https://localhost:7244/api/record", CurrentRecord);
 
-            if (response.IsSuccessStatusCode)
-            {
-                Console.WriteLine("Record updated successfully!");
-            }
-            else
+            if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine($"Failed to update record. Status code: {response.StatusCode}");
             }
