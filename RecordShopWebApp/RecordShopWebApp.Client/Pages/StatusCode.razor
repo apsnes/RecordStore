@@ -2,7 +2,7 @@
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 
-<div class="box has-background-grey-dark has-text-success m-2">
+<div class="box has-background-grey-dark has-text-success-light m-2">
     <h1 class="has-text-danger  is-size-1-desktop">@Status</h1>
 
     @if (Status == 404)
@@ -26,5 +26,5 @@
     private void ReturnToHomepage()
     {
         NavigationManager.NavigateTo("/");
-    }   
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using NUnit.Framework;
 using RecordStore.Entities;
 
@@ -7,6 +8,7 @@ namespace RecordStore
     public class RecordStoreDbContext : DbContext
     {
         public DbSet<Record> Records { get; set; }
+        public DbSet<Artist> Artists { get; set; }
         public RecordStoreDbContext(DbContextOptions<RecordStoreDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

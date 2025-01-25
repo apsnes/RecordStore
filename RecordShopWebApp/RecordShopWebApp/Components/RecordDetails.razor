@@ -1,17 +1,25 @@
 ﻿@inject NavigationManager NavigationManager
 @rendermode InteractiveServer
+<div class="box columns has-2-cols m-5 is-multiline has-background-dark">
+    <div class="column box has-background-grey-dark has-text-success-light p-2 m-4">
+        <h3 class="is-size-3 has-text-weight-bold">@CurrentRecord.Title by @CurrentRecord.Artist</h3>
+        <p>Record ID: @CurrentRecord.Id</p>
+        <p>Genre: @CurrentRecord.Genre</p>
+        <p>Release Year: @CurrentRecord.ReleaseYear</p> <br/><br/>
+        <h4 class="is-size-4 has-text-weight-bold">Artist Biography</h4>
+        <p>
+            Pokem ipsum dolor sit amet Croagunk Voltorb Totodile Zephyr Badge Dratini Sentret. Vine Whip Gothitelle Rufflet Zubat Dragonite Bastiodon Servine. Team Rocket Flaaffy Blastoise Meditite Togetic Ralts Noctowl. Rainbow Badge Alakazam Magneton Arceus Poliwag Electrode Aerodactyl. Ivysaur Gloom Leafeon Dewott Furret Meditite Drapion.
 
-<div class="card has-background-grey-dark has-text-success-light p-2">
-    <h4 class="card-title">@CurrentRecord.Title</h4>
-    <p class="card-text">Record ID: @CurrentRecord.Id</p>
-    <p class="card-text">Artist: @CurrentRecord.Artist</p>
-    <p class="card-text">Genre: @CurrentRecord.Genre</p>
-    <p class="card-text">Release Year: @CurrentRecord.ReleaseYear</p>
+            Soul Badge Wormadam Ground Armaldo Charizard Ferrothorn Mirror Move. Sinnoh make it double Slakoth Sunflora Pansear Larvesta Vespiquen. Rising Badge Poliwag Kyurem Harden Deoxys Bibarel Lavender Town. Ghost Jumpluff Farfetch'd Ampharos Psychic Weedle Hypno. Celadon City Zubat Luxio Honchkrow Wobbuffet Mineral Badge fishing rod.
+        </p>
+    </div>
+    <div class="box has-background-grey-dark m-4">
+        <iframe style="border-radius:12px" src="@CurrentRecord.SpotifyEmbed" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
 </div>
-
 <div class="is-flex is-justify-content-center is-align-items-center">
-        <button class="button is-primary has-background-grey-dark has-text-success-light mt-2 ml-1" @onclick="() => NavigateToUpdateRecord()">Update Record</button>
-        <button class="button is-primary has-background-grey-dark has-text-danger mt-2 ml-1" @onclick="() => NavigateToDeleteRecord()">Delete Record</button>
+        <button class="button is-primary has-background-grey-dark has-text-success-light mb-2" @onclick="() => NavigateToUpdateRecord()">Update Record</button>
+        <button class="button is-primary has-background-grey-dark has-text-danger ml-1 mb-2" @onclick="() => NavigateToDeleteRecord()">Delete Record</button>
 </div>
 
 @code
