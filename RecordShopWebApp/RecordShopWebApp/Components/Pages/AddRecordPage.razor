@@ -7,6 +7,7 @@
         <InputText @bind-Value="CurrentRecord.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
         <InputText @bind-Value="CurrentRecord.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
         <InputText @bind-Value="CurrentRecord.SpotifyEmbed" class="input has-text-success-light m-1" placeholder="Spotify Embed Link" />
+        <InputNumber @bind-Value="CurrentRecord.ArtistId" class="input has-text-success-light m-1" placeholder="Artist ID" />
         <InputNumber @bind-Value="CurrentRecord.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
         <button class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1" @onclick="() => AddRecord()">Add Record</button>
     </div>
@@ -21,7 +22,7 @@
 
     private async void AddRecord()
     {
-        if (CurrentRecord.Title == null || CurrentRecord.Artist == null || CurrentRecord.Genre == null || CurrentRecord.ReleaseYear <= 0 || CurrentRecord.SpotifyEmbed == null)
+        if (CurrentRecord.Title == null || CurrentRecord.Artist == null || CurrentRecord.Genre == null || CurrentRecord.ReleaseYear <= 0 || CurrentRecord.ArtistId <= 0 || CurrentRecord.SpotifyEmbed == null)
         {
             FormStatus = "Error in form, please try again";
             return;

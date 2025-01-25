@@ -7,6 +7,7 @@
         <InputText @bind-Value="recordWithNewDetails.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
         <InputText @bind-Value="recordWithNewDetails.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
         <InputText @bind-Value="recordWithNewDetails.SpotifyEmbed" class="input has-text-success-light m-1" placeholder="Spotify Embed Link" />
+        <InputNumber @bind-Value="recordWithNewDetails.ArtistId" class="input has-text-success-light m-1" placeholder="Artist ID" />
         <InputNumber @bind-Value="recordWithNewDetails.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
         <button class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1" @onclick="() => UpdateCurrentRecord()">Update Record</button>
     </div>

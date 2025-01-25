@@ -85,6 +85,7 @@ namespace RecordStore.Repository
             if (record.Artist != null) foundRecord.Artist = record.Artist;
             if (record.Genre != null) foundRecord.Genre = record.Genre;
             if (record.ReleaseYear != 0) foundRecord.ReleaseYear = record.ReleaseYear;
+            if (record.ArtistId != 0) foundRecord.ArtistId = record.ArtistId;
             if (record.SpotifyEmbed != null) foundRecord.SpotifyEmbed = record.SpotifyEmbed;
             _db.Update(foundRecord);
             var result = _db.SaveChanges();
