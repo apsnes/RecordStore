@@ -6,6 +6,8 @@ This is a record store application for managing inventory via Http requests or v
 - Various endpoints for getting records using a number of different filters, as well as endpoints for
   delete, post and put requests.
 - Use dotnet commands in the CLI to perform service layer  get methods.
+- Blazor web frontend supporting calling all endpoints
+- Spotify embedding enabled for all records
 
 ## Running the application
 - Clone the repo: https://github.com/apsnes/RecordStore.git
@@ -28,4 +30,5 @@ This is a record store application for managing inventory via Http requests or v
   dotnet run get-record-info-by-name --name <"name">
 
 ## Future Improvements
-- Develop fully functional frontend
+- Automate description fetching upon creating a new artist/record
+- Artist artwork for Artist Summary page
