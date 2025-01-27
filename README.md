@@ -1,5 +1,5 @@
 ## About
-This is a record store application for managing inventory via Http requests or via a cocona CLI.
+This is a record store application for managing inventory via a fully functional blazor web app or via a cocona CLI.
 
 ## Features
 - Uses MVC layers to link a web api to the record store database.
