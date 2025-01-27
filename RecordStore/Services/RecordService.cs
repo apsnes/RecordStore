@@ -58,7 +58,7 @@ namespace RecordStore.Services
         {
             return _recordRepository.DeleteRecordById(id);
         }
-        //---------Put Requests----------
+        //---------Patch Requests----------
         public (bool, Record) UpdateRecord(Record record)
         {
             return _recordRepository.UpdateRecord(record);

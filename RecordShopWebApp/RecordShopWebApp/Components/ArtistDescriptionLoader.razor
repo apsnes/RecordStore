@@ -12,7 +12,7 @@ else
 @code
 {
     private Artist artist = new();
-    [Parameter] public int ArtistId { get; set; }
+    [Parameter] public int? ArtistId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

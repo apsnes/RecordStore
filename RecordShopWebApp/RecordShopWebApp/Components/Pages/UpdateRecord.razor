@@ -23,10 +23,12 @@
 
     private async Task UpdateCurrentRecord()
     {
+        if (recordWithNewDetails.ArtistId == null) recordWithNewDetails.ArtistId = 0;
+        if (recordWithNewDetails.ReleaseYear == null) recordWithNewDetails.ReleaseYear = 0;
         using (HttpClient client = new())
         {
             recordWithNewDetails.Id = RecordId;
-            var response = await client.PutAsJsonAsync($"https://localhost:7244/api/record", recordWithNewDetails);
+            var response = await client.PatchAsJsonAsync($"https://localhost:7244/api/record", recordWithNewDetails);
             if (response == null || !response.IsSuccessStatusCode)
             {
                 FormStatus = $"Unable to update record details. Please try again. {response.StatusCode}";

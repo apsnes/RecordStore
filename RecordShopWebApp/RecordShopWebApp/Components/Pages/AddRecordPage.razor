@@ -2,15 +2,17 @@
 @rendermode InteractiveServer
 
 <div class="is-flex is-justify-content-center is-align-items-center">
-    <div class="has-text-success-light box is-flex is-flex-direction-column is-align-items-center">
-        <InputText @bind-Value="CurrentRecord.Title" class="input has-text-success-light m-1" placeholder="Title" />
-        <InputText @bind-Value="CurrentRecord.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
-        <InputText @bind-Value="CurrentRecord.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
-        <InputText @bind-Value="CurrentRecord.SpotifyEmbed" class="input has-text-success-light m-1" placeholder="Spotify Embed Link" />
-        <InputNumber @bind-Value="CurrentRecord.ArtistId" class="input has-text-success-light m-1" placeholder="Artist ID" />
-        <InputNumber @bind-Value="CurrentRecord.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
-        <button class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1" @onclick="() => AddRecord()">Add Record</button>
-    </div>
+    <EditForm FormName="AddRecord" Model="@CurrentRecord" OnValidSubmit="AddRecord">
+        <div class="has-text-success-light box is-flex is-flex-direction-column is-align-items-center">
+            <InputText @bind-Value="CurrentRecord.Title" class="input has-text-success-light m-1" placeholder="Title" />
+            <InputText @bind-Value="CurrentRecord.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
+            <InputText @bind-Value="CurrentRecord.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
+            <InputText @bind-Value="CurrentRecord.SpotifyEmbed" class="input has-text-success-light m-1" placeholder="Spotify Embed Link" />
+            <InputNumber @bind-Value="CurrentRecord.ArtistId" class="input has-text-success-light m-1" placeholder="Artist ID" />
+            <InputNumber @bind-Value="CurrentRecord.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
+            <button type="submit" class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1">Add Record</button>
+        </div>
+    </EditForm>
 </div>
 
 <p class="has-text-grey-dark">@FormStatus</p>
