@@ -1,0 +1,7 @@
+﻿@page "/artist/{Id:int}"
+
+<ArtistLoader CurrentArtistId="@Id" />
+
+@code {
+    [Parameter] public int Id { get; set; }
+}

@@ -2,15 +2,17 @@
 @page "/records/update/{RecordId:int}"
 
 <div class="is-flex is-justify-content-center is-align-items-center">
-    <div class="has-text-success-light box is-flex is-flex-direction-column is-align-items-center">
-        <InputText @bind-Value="recordWithNewDetails.Title" class="input has-text-success-light m-1" placeholder="Title" />
-        <InputText @bind-Value="recordWithNewDetails.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
-        <InputText @bind-Value="recordWithNewDetails.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
-        <InputText @bind-Value="recordWithNewDetails.SpotifyEmbed" class="input has-text-success-light m-1" placeholder="Spotify Embed Link" />
-        <InputNumber @bind-Value="recordWithNewDetails.ArtistId" class="input has-text-success-light m-1" placeholder="Artist ID" />
-        <InputNumber @bind-Value="recordWithNewDetails.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
-        <button class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1" @onclick="() => UpdateCurrentRecord()">Update Record</button>
-    </div>
+    <EditForm FormName="UpdateRecord" Model="@recordWithNewDetails" OnValidSubmit="UpdateCurrentRecord">
+        <div class="has-text-success-light box is-flex is-flex-direction-column is-align-items-center">
+            <InputText @bind-Value="recordWithNewDetails.Title" class="input has-text-success-light m-1" placeholder="Title" />
+            <InputText @bind-Value="recordWithNewDetails.Artist" class="input has-text-success-light m-1" placeholder="Artist" />
+            <InputText @bind-Value="recordWithNewDetails.Genre" class="input has-text-success-light m-1" placeholder="Genre" />
+            <InputText @bind-Value="recordWithNewDetails.SpotifyEmbed" class="input has-text-success-light m-1" placeholder="Spotify Embed Link" />
+            <InputNumber @bind-Value="recordWithNewDetails.ArtistId" class="input has-text-success-light m-1" placeholder="Artist ID" />
+            <InputNumber @bind-Value="recordWithNewDetails.ReleaseYear" class="input has-text-success-light m-1" placeholder="Release Year" />
+            <button type="submit" class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1">Update Record</button>
+        </div>
+    </EditForm>
 </div>
 
 <p class="has-text-grey-dark">@FormStatus</p>

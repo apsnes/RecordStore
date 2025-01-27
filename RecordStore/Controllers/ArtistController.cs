@@ -5,15 +5,15 @@ using RecordStore.Services;
 namespace RecordStore.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class ArtistController : Controller
+    [Route("api/artist")]
+    public class ArtistController : ControllerBase
     {
         private readonly IArtistService _artistService;
         public ArtistController(IArtistService artistService)
         {
             _artistService = artistService;
         }
-        [HttpGet]
+        [HttpGet("/api/artist")]
         public IActionResult GetAllArtists()
         {
             var result = _artistService.GetAllArtists();
@@ -34,7 +34,7 @@ namespace RecordStore.Controllers
             if (result == false) return BadRequest("Artist not added");
             return Ok("Artist added");
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteArtistById(int id)
         {
             var result = _artistService.DeleteArtistById(id);

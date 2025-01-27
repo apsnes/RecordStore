@@ -56,6 +56,13 @@ namespace RecordStore.Controllers
             if (result.Item1 == false) return BadRequest($"Record not with name: {recordName} not found");
             return Ok(result.Item2);
         }
+        [HttpGet("artistname/{artistId}")]
+        public IActionResult GetArtistNameByArtistId(int artistId)
+        {
+            var result = _recordService.GetArtistNameByArtistId(artistId);
+            if (result.Item1 == false) return BadRequest($"Artist with id: {artistId} not found");
+            return Ok(result.Item2);
+        }
         //---------Post Requests---------
         [HttpPost]
         public IActionResult AddRecord([FromBody] Record record)

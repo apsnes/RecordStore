@@ -1,0 +1,33 @@
+﻿@using RecordStore.Entities
+@using RecordShopWebApp.Components
+
+@if (currentArtist == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ArtistDetails CurrentArtist="@currentArtist" />
+}
+
+@code
+{
+    [Parameter] public int CurrentArtistId { get; set; }
+
+    private Artist currentArtist { get; set; }
+
+    private HttpClient httpClient;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        httpClient = new();
+        try
+        {
+            currentArtist = await httpClient.GetFromJsonAsync<Artist>($"https://localhost:7244/api/artist/{CurrentArtistId}");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error fetching record: {ex.Message}");
+        }
+    }
+}

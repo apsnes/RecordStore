@@ -1,0 +1,49 @@
+﻿@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<div class="box columns has-2-cols m-5 is-multiline has-background-dark">
+    <div class="column box has-background-grey-dark has-text-success-light p-2 m-4">        
+        <h4 class="is-size-4 has-text-weight-bold">Artist Biography</h4>
+        <ArtistDescriptionLoader ArtistId="@CurrentArtist.Id" />
+    </div>
+</div>
+
+<div class="is-flex is-justify-content-center is-align-items-center">
+    <button class="button is-primary has-background-grey-dark has-text-danger ml-1 mb-2" @onclick="() => NavigateToDeleteArtist()">Delete Artist</button>
+</div>
+
+@if (string.IsNullOrEmpty(artistName))
+{
+    <p>Loading...</p>
+}
+else
+{
+    <SongsByArtistLoader ArtistName="@artistName" />
+}
+
+@code
+{
+    [Parameter] public Artist CurrentArtist { get; set; }
+    private string artistName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using (HttpClient client = new())
+        {
+            try
+            {
+                var response = await client.GetAsync($"https://localhost:7244/api/record/artistname/{CurrentArtist.Id}");
+                artistName = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error fetching artist: {ex.Message}");
+            }
+        }
+    }
+
+    private void NavigateToDeleteArtist()
+    {
+        NavigationManager.NavigateTo($"/artists/delete/{CurrentArtist.Id}");
+    }
+}

@@ -14,6 +14,7 @@ namespace RecordStore.Services
         (bool, Record) AddRecord(Record record);
         (bool, Record) DeleteRecordById(int id);
         (bool, Record) UpdateRecord(Record record);
+        (bool, string) GetArtistNameByArtistId(int artistId);
     }
 
     public class RecordService : IRecordService
@@ -47,6 +48,10 @@ namespace RecordStore.Services
         public (bool, Record) GetRecordInfoByName(string recordName)
         {
             return _recordRepository.GetRecordInfoByName(recordName);
+        }
+        public (bool, string) GetArtistNameByArtistId(int artistId)
+        {
+            return _recordRepository.GetArtistNameByArtistId(artistId);
         }
         //---------Post Requests---------
         public (bool, Record) AddRecord(Record record)

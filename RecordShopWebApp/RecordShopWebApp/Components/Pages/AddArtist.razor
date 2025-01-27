@@ -1,0 +1,28 @@
+﻿@page "/artists/add"
+@rendermode InteractiveServer
+
+<div class="is-flex is-justify-content-center is-align-items-center">
+    <EditForm FormName="AddArtist" Model="@CurrentArtist" OnValidSubmit="AddNewArtist">
+        <DataAnnotationsValidator />
+        <div class="has-text-success-light box is-flex is-flex-direction-column is-align-items-center">
+            <InputNumber @bind-Value="CurrentArtist.Id" class="input has-text-success-light m-1" placeholder="Artist ID" />
+            <ValidationMessage For="@(() => CurrentArtist.Id)" />
+            <InputText @bind-Value="CurrentArtist.Description" class="input has-text-success-light m-1" placeholder="Artist Description" />
+            <ValidationMessage For="@(() => CurrentArtist.Description)" />
+            <button type="submit" class="button is-primary has-text-success-light has-background-grey-dark mt-2 ml-1">Add Artist</button>
+        </div>
+    </EditForm>
+</div>
+
+@code
+{
+    private Artist CurrentArtist = new();
+
+    private async Task AddNewArtist()
+    {
+        using (HttpClient client = new())
+        {
+            await client.PostAsJsonAsync($"https://localhost:7244/api/artist", CurrentArtist);
+        }
+    }
+}

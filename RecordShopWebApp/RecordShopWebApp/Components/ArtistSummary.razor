@@ -1,0 +1,41 @@
+﻿@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<div class="card has-background-grey-dark has-text-success-light p-2">
+    @if (artistName == "")
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <h4 class="card-title has-text-weight-bold">@artistName</h4>
+        <p class="card-title has-text-weight-bold">@CurrentArtist.Id</p>
+    }
+</div>
+
+@code
+{
+    [Parameter] public Artist CurrentArtist { get; set; }
+    private string artistName = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using (HttpClient client = new())
+        {
+            try
+            {
+                var response = await client.GetAsync($"https://localhost:7244/api/record/artistname/{CurrentArtist.Id}");
+                artistName = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error fetching artist: {ex.Message}");
+            }
+        }
+    }
+
+    private void NavigateToDeleteArtist()
+    {
+        NavigationManager.NavigateTo($"/artists/delete/{CurrentArtist.Id}");
+    }
+}

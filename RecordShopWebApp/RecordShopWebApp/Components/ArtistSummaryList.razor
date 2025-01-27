@@ -1,0 +1,24 @@
+﻿@inject NavigationManager Navigation
+@rendermode InteractiveServer
+@using RecordStore.Entities
+
+<div class="columns is-multiline is-variable is-3 m-5">
+    @foreach (var artist in ArtistList)
+    {
+        <div class="column is-3 is-full-mobile">
+            <div class="box is-clickable" @onclick="() => NavigateToArtist(artist.Id)">
+                <ArtistSummary CurrentArtist="artist" />
+            </div>
+        </div>
+    }
+</div>
+
+@code
+{
+    [Parameter] public List<Artist> ArtistList { get; set; }
+
+    private void NavigateToArtist(int artistId)
+    {
+        Navigation.NavigateTo($"/artist/{artistId}");
+    }
+}

@@ -35,6 +35,7 @@ namespace RecordStore.Repository
         }
         public bool AddArtist(Artist artist)
         {
+            if (string.IsNullOrEmpty(artist.Description)) return false;
             _db.Artists.Add(artist);
             _db.SaveChanges();
             return true;
