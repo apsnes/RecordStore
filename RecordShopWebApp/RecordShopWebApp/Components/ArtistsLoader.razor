@@ -1,0 +1,27 @@
+﻿@using RecordStore.Entities
+@using RecordShopWebApp.Components
+
+@if (AllArtists == null)
+{
+    <p>Loading...</p>
+}
+else if (AllArtists.Count == 0)
+{
+    <p>No artists found</p>
+}
+else
+{
+    <ArtistSummaryList ArtistList="AllArtists" />
+}
+
+@code
+{
+    public List<Artist> AllArtists { get; set; }
+    protected override async Task OnInitializedAsync() 
+    {
+        using (HttpClient client = new())
+        {
+            AllArtists = await client.GetFromJsonAsync<List<Artist>>("https://localhost:7244/api/artist");
+        }
+    }
+}

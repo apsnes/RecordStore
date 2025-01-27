@@ -1,13 +1,23 @@
-﻿@using RecordStore.Entities
+﻿@inject NavigationManager Navigation
+@rendermode InteractiveServer
+@using RecordStore.Entities
 
-
-<h4 class="has-text-grey-dark p-2">RecordSummaryList</h4>
-<div class="columns is-centered m-2">
-    @foreach (var record in RecordList)
-    {
-        <RecordSummary CurrentRecord="record" />
-    }
+<div class="columns is-multiline is-variable is-3 m-5">
+     <Virtualize Items="RecordList" Context="record">
+        <div class="column is-3 is-full-mobile">
+            <div class="box is-clickable" @onclick="() => NavigateToRecord(record.Id)">
+                <RecordSummary @key="record.Id" CurrentRecord="record" />
+            </div>
+        </div>
+    </Virtualize>
 </div>
-@code {
+
+@code
+{
     [Parameter] public List<Record> RecordList { get; set; }
+
+    private void NavigateToRecord(int recordId)
+    {
+        Navigation.NavigateTo($"/records/{recordId}");
+    }
 }

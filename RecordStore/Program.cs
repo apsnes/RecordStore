@@ -7,6 +7,9 @@ using RecordStore.Repository;
 using RecordStore.Services;
 using RecordStore.Entities;
 using System.Text.Json;
+using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Extensibility;
+using Microsoft.Identity.Client.Advanced;
 
 namespace RecordStore
 {
@@ -32,6 +35,8 @@ namespace RecordStore
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IRecordService, RecordService>();
             builder.Services.AddScoped<IRecordRepository, RecordRepository>();
+            builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
+            builder.Services.AddScoped<IArtistService, ArtistService>();
 
             var app = builder.Build();
 
@@ -40,6 +45,11 @@ namespace RecordStore
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(policy =>
+                policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
             app.UseAuthorization();

@@ -1,0 +1,7 @@
+﻿@page "/records/{Id:int}"
+
+<RecordLoader CurrentRecordId="@Id" />
+
+@code {
+    [Parameter] public int Id { get; set; }
+}

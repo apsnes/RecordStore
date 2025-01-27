@@ -1,0 +1,30 @@
+﻿@page "/StatusCode/{Status:int}"
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
+<div class="box has-background-grey-dark has-text-success-light m-2">
+    <h1 class="has-text-danger  is-size-1-desktop">@Status</h1>
+
+    @if (Status == 404)
+    {
+        <p class="has-text-danger is-family-sans-serif">Webpage Not Found</p>
+        <p class="is-family-sans-serif">Oh no! The page you're looking for doesn't exist! Try going back or returning to our homepage:</p>
+    }
+    else
+    {
+        <h1 class="has-text-danger is-family-sans-serif">@Status: Error</h1>
+        <p class="is-family-sans-serif">An error occurred while processing your request. Please try again later.</p>
+    }
+
+    <button class="button is-primary has-text-grey-dark mt-2" @onclick="() => ReturnToHomepage()">Return to Homepage</button>
+</div>
+
+@code
+{
+    [Parameter] public int Status { get; set; }
+
+    private void ReturnToHomepage()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

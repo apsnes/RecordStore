@@ -1,0 +1,29 @@
+﻿@rendermode InteractiveServer
+
+@if (string.IsNullOrEmpty(@artist.Description))
+{
+    <p>Loading...</p>
+}
+else
+{
+    <p>@artist.Description</p>
+}
+
+@code
+{
+    private Artist artist = new();
+    [Parameter] public int? ArtistId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        HttpClient client = new();
+        try
+        {
+            artist = await client.GetFromJsonAsync<Artist>($"https://localhost:7244/api/artist/{ArtistId}");
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error fetching artist description: {ex.Message}");
+        }
+    }
+}

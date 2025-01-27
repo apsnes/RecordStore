@@ -14,6 +14,7 @@ namespace RecordStore.Repository
         (bool, Record) AddRecord(Record record);
         (bool, Record) DeleteRecordById(int id);
         (bool, Record) UpdateRecord(Record record);
+        (bool, string) GetArtistNameByArtistId(int artistId);
     }
 
     public class RecordRepository : IRecordRepository
@@ -37,7 +38,7 @@ namespace RecordStore.Repository
         public (bool, List<Record>) GetRecordsByArtist(string artist)
         {
             var result = _db.Records.Where(r => r.Artist == artist).ToList();
-            return (!result.IsNullOrEmpty(), result);
+            return (result.Count > 0, result);
         }
         public (bool, List<Record>) GetRecordsByReleaseYear(int year)
         {
@@ -53,6 +54,11 @@ namespace RecordStore.Repository
         {
             var result = _db.Records.FirstOrDefault(r => r.Title == recordName);
             return (result != null && result.Id != 0, result);
+        }
+        public (bool, string) GetArtistNameByArtistId(int artistId)
+        {
+            var result = _db.Records.FirstOrDefault(a => a.ArtistId == artistId);
+            return (result != null && result.Id != 0, result.Artist);
         }
         //---------Post Requests---------
         public (bool, Record) AddRecord(Record record)
@@ -81,7 +87,13 @@ namespace RecordStore.Repository
             {
                 return (false, null);
             }
-            _db.Entry(foundRecord).CurrentValues.SetValues(record);
+            if (record.Title != null) foundRecord.Title = record.Title;
+            if (record.Artist != null) foundRecord.Artist = record.Artist;
+            if (record.Genre != null) foundRecord.Genre = record.Genre;
+            if (record.ReleaseYear != 0) foundRecord.ReleaseYear = record.ReleaseYear;
+            if (record.ArtistId != 0) foundRecord.ArtistId = record.ArtistId;
+            if (record.SpotifyEmbed != null) foundRecord.SpotifyEmbed = record.SpotifyEmbed;
+            _db.Update(foundRecord);
             var result = _db.SaveChanges();
             return (result == 1, record);
         }

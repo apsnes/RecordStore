@@ -1,0 +1,33 @@
+﻿@page "/records/delete/{Id:int}"
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<div class="is-flex is-justify-content-center is-align-items-center">
+    <div class="has-background-grey-dark box is-flex is-align-items-center">
+        <label class="mr-2 has-text-danger has-text-weight-bold">Confirm deletion of Record @Id</label>
+        <InputCheckbox @bind-Value="confirmDelete" class="mr-2" />
+        <button class="has-text-grey-dark has-background-danger button is-primary" @onclick="() => DeleteRecord()">Delete</button>
+    </div>
+</div>
+
+@code
+{
+    public string FormStatus = string.Empty;
+    private bool confirmDelete = false;
+    [Parameter] public int Id { get; set; }
+
+    private async Task DeleteRecord()
+    {
+        if (!confirmDelete)
+        {
+            FormStatus = "Please confirm deletion";
+            return;
+        }
+        using (HttpClient client = new())
+        {
+            var response = await client.DeleteAsync($"https://localhost:7244/api/record/{Id}");
+            if (response == null || !response.IsSuccessStatusCode) FormStatus = "Error in form, please try again";
+            else NavigationManager.NavigateTo("/records");
+        }
+    }
+}
