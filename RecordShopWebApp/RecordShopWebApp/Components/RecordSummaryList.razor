@@ -3,15 +3,15 @@
 @using RecordStore.Entities
 
 <div class="columns is-multiline is-variable is-3 m-5">
-    @foreach (var record in RecordList)
-    {
+    <Virtualize Items="RecordList" Context="record">
         <div class="column is-3 is-full-mobile">
             <div class="box is-clickable" @onclick="() => NavigateToRecord(record.Id)">
-                <RecordSummary CurrentRecord="record" />
+                <RecordSummary @key="record.Id" CurrentRecord="record" />
             </div>
         </div>
-    }
+    </Virtualize>
 </div>
+
 @code
 {
     [Parameter] public List<Record> RecordList { get; set; }
